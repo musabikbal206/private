@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Portal | Musab İkbal SUBAŞI</title>
+    <style>
+        /* --- FONTS & VARS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        :root {
+            --navy: #0A192F;
+            --navy-light: #172a45;
+            --gold: #D4AF37;
+            --cream: #F8F8F0;
+            --white: #ffffff;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--navy);
+            color: var(--cream);
+            font-family: 'Lato', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(to bottom, var(--navy), var(--navy-light));
+            padding: 3rem 1rem;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* --- PROGRESS BAR SECTION --- */
+        .progress-container {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding: 0 1rem;
+            width: 100%;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .progress-bar-bg {
+            background-color: var(--navy-light);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--gold);
+            height: 100%;
+            width: 2.5%; /* Represents 1/40 lessons complete */
+            border-radius: 5px;
+        }
+
+        /* --- GRID LAYOUT --- */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* --- LESSON CARD --- */
+        .lesson-card {
+            background-color: var(--navy-light);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--cream);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 180px;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+            background-color: #1c3352;
+        }
+
+        .lesson-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            transition: var(--transition);
+        }
+
+        .lesson-card:hover .lesson-number {
+            color: rgba(212, 175, 55, 0.2);
+        }
+
+        .lesson-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            z-index: 1;
+            color: var(--gold);
+        }
+
+        .lesson-status {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #555;
+        }
+
+        .completed .status-dot { background-color: #2ecc71; }
+        .current .status-dot { background-color: var(--gold); box-shadow: 0 0 10px var(--gold); }
+        .locked .status-dot { background-color: #555; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--navy-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Private Tutoring: Musab İkbal SUBAŞI</h1>
+        <p class="subtitle">Personalized English Curriculum Dashboard</p>
+    </header>
+
+    <div class="progress-container">
+        <div class="progress-label">
+            <span>Course Progress</span>
+            <span>1 / 40 Lessons</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 2.5%"></div>
+        </div>
+    </div>
+
+    <main class="course-grid" id="grid">
+        <!-- Lessons generated via JS below -->
+    </main>
+
+    <footer>
+        <p>© 2025 Musab İkbal SUBAŞI | Private English Instruction</p>
+    </footer>
+
+    <script>
+        // --- CONFIGURATION ---
+        const totalLessons = 40;
+        
+        // Define specific lesson titles here. 
+        // Any index not listed will default to "Lesson X"
+        const lessonMap = {
+            1: { title: "Meeting New People", file: "lesson1.html", status: "completed" },
+            2: { title: "Speaking About Yourself and Family", file: "lesson2.html", status: "current" },
+            // Example of future content:
+            // 3: { title: "Daily Routines", file: "lesson3.html", status: "locked" }
+        };
+
+        const grid = document.getElementById('grid');
+
+        for (let i = 1; i <= totalLessons; i++) {
+            const lesson = lessonMap[i] || { 
+                title: `Lesson ${i}: Topic Coming Soon`, 
+                file: "#", 
+                status: "locked" 
+            };
+
+            const card = document.createElement('a');
+            card.className = `lesson-card ${lesson.status}`;
+            card.href = lesson.file;
+            
+            // Handle "locked" links (optional: prevent click)
+            if (lesson.file === "#") {
+                card.onclick = (e) => {
+                    e.preventDefault();
+                    alert("This lesson content is not yet available.");
+                };
+            }
+
+            // Status Text Logic
+            let statusText = "Locked";
+            if (lesson.status === 'completed') statusText = "Completed";
+            if (lesson.status === 'current') statusText = "Ready to Start";
+
+            card.innerHTML = `
+                <div class="lesson-number">${i}</div>
+                <div class="lesson-title">${lesson.title}</div>
+                <div class="lesson-status">
+                    <div class="status-dot"></div>
+                    ${statusText}
+                </div>
+            `;
+
+            grid.appendChild(card);
+        }
+    </script>
+
+</body>
+</html>
