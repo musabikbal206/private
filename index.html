@@ -79,7 +79,7 @@
         .progress-bar-fill {
             background-color: var(--gold);
             height: 100%;
-            width: 7.5%; /* Updated progress */
+            width: 7.5%; 
             border-radius: 5px;
         }
 
@@ -260,25 +260,24 @@
         const totalLessons = 40;
         
         // --- LESSON DATA ---
-        // 'file': The HTML file for the main lesson (e.g., 'lesson1.html')
-        // 'game': The HTML file for the game (e.g., 'The Community Day 3D Challenge.html')
+        // Clean filenames: No spaces (%20) and no colons.
         const lessonMap = {
             1: { 
                 title: "Meeting New People", 
                 file: "lesson1.html", 
-                game: "#", // Placeholder for Lesson 1 game
+                game: "#", 
                 status: "completed" 
             },
             2: { 
                 title: "Speaking About Yourself", 
                 file: "lesson2.html", 
-                game: "#", // Placeholder for Lesson 2 game
+                game: "#", 
                 status: "completed" 
             },
             3: { 
                 title: "Describing People", 
-                file: "Private Lesson: Musab Ikbal Subasi.html", // Updated to the file generated earlier
-                game: "The Community Day 3D Challenge.html", // ROOTING to the 3D Game
+                file: "Private_Lesson_Musab_Ikbal_Subasi.html", // Replaced spaces/colon with underscores
+                game: "The_Community_Day_3D_Challenge.html",    // Replaced spaces with underscores
                 status: "current" 
             },
             4: { 
