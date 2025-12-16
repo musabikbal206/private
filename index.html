@@ -79,14 +79,14 @@
         .progress-bar-fill {
             background-color: var(--gold);
             height: 100%;
-            width: 2.5%; /* Represents 1/40 lessons complete */
+            width: 7.5%; /* Updated progress */
             border-radius: 5px;
         }
 
         /* --- GRID LAYOUT --- */
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             max-width: 1200px;
             margin: 2rem auto;
@@ -99,9 +99,8 @@
         .lesson-card {
             background-color: var(--navy-light);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
-            text-decoration: none;
             color: var(--cream);
             transition: var(--transition);
             position: relative;
@@ -109,7 +108,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 180px;
+            min-height: 220px;
         }
 
         .lesson-card:hover {
@@ -121,47 +120,103 @@
 
         .lesson-number {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.05);
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.03);
             position: absolute;
             top: -10px;
             right: 10px;
             transition: var(--transition);
+            line-height: 1;
         }
 
         .lesson-card:hover .lesson-number {
-            color: rgba(212, 175, 55, 0.2);
+            color: rgba(212, 175, 55, 0.1);
+        }
+
+        .card-content {
+            z-index: 2;
         }
 
         .lesson-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            z-index: 1;
             color: var(--gold);
+            margin-top: 1rem;
         }
 
         .lesson-status {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: auto;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
         }
 
         .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background-color: #555;
         }
 
         .completed .status-dot { background-color: #2ecc71; }
         .current .status-dot { background-color: var(--gold); box-shadow: 0 0 10px var(--gold); }
         .locked .status-dot { background-color: #555; }
+
+        /* --- ACTION BUTTONS (ROOTING) --- */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            z-index: 2;
+        }
+
+        .btn-card {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-lesson {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-lesson:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-game {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        .btn-game:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        /* Locked State */
+        .locked .btn-card {
+            pointer-events: none;
+            opacity: 0.5;
+            border-color: #444;
+            color: #666;
+            background: rgba(0,0,0,0.2);
+        }
 
         /* --- FOOTER --- */
         footer {
@@ -185,10 +240,10 @@
     <div class="progress-container">
         <div class="progress-label">
             <span>Course Progress</span>
-            <span>1 / 40 Lessons</span>
+            <span>3 / 40 Lessons</span>
         </div>
         <div class="progress-bar-bg">
-            <div class="progress-bar-fill" style="width: 2.5%"></div>
+            <div class="progress-bar-fill"></div>
         </div>
     </div>
 
@@ -204,15 +259,35 @@
         // --- CONFIGURATION ---
         const totalLessons = 40;
         
-        // Define specific lesson titles here. 
-        // Any index not listed will default to "Lesson X"
+        // --- LESSON DATA ---
+        // 'file': The HTML file for the main lesson (e.g., 'lesson1.html')
+        // 'game': The HTML file for the game (e.g., 'The Community Day 3D Challenge.html')
         const lessonMap = {
-            1: { title: "Meeting New People", file: "lesson1.html", status: "completed" },
-            2: { title: "Speaking About Yourself and Family", file: "lesson2.html", status: "completed" },
-            3: { title: "Describing People", file: "lesson3.html", status: "current" },
-            4: { title: "Fun Test", file: "lesson4.html", status: "locked" },
-            // Example of future content:
-            // 3: { title: "Daily Routines", file: "lesson3.html", status: "locked" }
+            1: { 
+                title: "Meeting New People", 
+                file: "lesson1.html", 
+                game: "#", // Placeholder for Lesson 1 game
+                status: "completed" 
+            },
+            2: { 
+                title: "Speaking About Yourself", 
+                file: "lesson2.html", 
+                game: "#", // Placeholder for Lesson 2 game
+                status: "completed" 
+            },
+            3: { 
+                title: "Describing People", 
+                file: "Private Lesson: Musab Ikbal Subasi.html", // Updated to the file generated earlier
+                game: "The Community Day 3D Challenge.html", // ROOTING to the 3D Game
+                status: "current" 
+            },
+            4: { 
+                title: "Fun Test & Review", 
+                file: "lesson4.html", 
+                game: "#", 
+                status: "locked" 
+            },
+            // Future lessons...
         };
 
         const grid = document.getElementById('grid');
@@ -221,32 +296,40 @@
             const lesson = lessonMap[i] || { 
                 title: `Lesson ${i}: Topic Coming Soon`, 
                 file: "#", 
+                game: "#",
                 status: "locked" 
             };
 
-            const card = document.createElement('a');
-            card.className = `lesson-card ${lesson.status}`;
-            card.href = lesson.file;
-            
-            // Handle "locked" links (optional: prevent click)
-            if (lesson.file === "#") {
-                card.onclick = (e) => {
-                    e.preventDefault();
-                    alert("This lesson content is not yet available.");
-                };
-            }
-
-            // Status Text Logic
+            // Determine Status Text
             let statusText = "Locked";
             if (lesson.status === 'completed') statusText = "Completed";
             if (lesson.status === 'current') statusText = "Ready to Start";
 
+            // Create Card
+            const card = document.createElement('div');
+            card.className = `lesson-card ${lesson.status}`;
+            
+            // Handle Locked State for Clicks
+            const linkProps = lesson.status === 'locked' ? 'onclick="return false;"' : '';
+
             card.innerHTML = `
                 <div class="lesson-number">${i}</div>
-                <div class="lesson-title">${lesson.title}</div>
-                <div class="lesson-status">
-                    <div class="status-dot"></div>
-                    ${statusText}
+                
+                <div class="card-content">
+                    <div class="lesson-status">
+                        <div class="status-dot"></div>
+                        ${statusText}
+                    </div>
+                    <div class="lesson-title">${lesson.title}</div>
+                </div>
+
+                <div class="action-row">
+                    <a href="${lesson.file}" class="btn-card btn-lesson" ${linkProps}>
+                        <span>📄</span> Lesson
+                    </a>
+                    <a href="${lesson.game}" class="btn-card btn-game" ${linkProps}>
+                        <span>🎮</span> Game
+                    </a>
                 </div>
             `;
 
